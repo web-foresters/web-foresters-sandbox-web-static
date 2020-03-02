@@ -1,0 +1,38 @@
+<!--
+/*
+ * License: 2020 Web Foresters, LLC (Michigan USA)
+ * Author: Raymond Naseef
+ */
+-->
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<style type="text/css">
+		@import url(style.css);
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.15.0/d3.js"></script>
+	<!-- 
+		https://stackoverflow.com/a/38209449/1003157
+	-->
+	<script src="https://d3js.org/d3-selection-multi.v0.4.min.js"></script>
+	<script src="script.js"></script>
+</head>
+
+<div>
+  <img src="https://playcode.io/static/img/logo.png" 
+       alt="PlayCode logo">
+  <h1 id="msg"></h1>
+</div>
+	<svg id="svg1"></svg>
+	<svg id="svg2"></svg>
+<br/>
+<div>
+	<button type="button" onclick="D3Script.drawLine();">Draw D3 Line</button>
+	<button type="button" onclick="D3Script.drawLineMulti();">Draw jQuery Line Multi</button>
+</div>
+<script>
+	$(function() {
+//		D3Script.drawLine();
+	});
+</script>
