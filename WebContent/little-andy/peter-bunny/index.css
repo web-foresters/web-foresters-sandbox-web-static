@@ -1,0 +1,214 @@
+html {
+  background-color: LightBlue;
+}
+
+body {
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0;
+  place-items: center;
+  font-family: "Work Sans", sans-serif;
+  display: grid;
+}
+
+h1 {
+  background: white;
+  border: 1px solid #777;
+  padding: 1rem 3rem;
+}
+
+#Bullet {
+  position: absolute;
+  top: 90vh;
+  width: 20px;
+  height: 20px;
+  border: 4px solid blue;
+  border-radius: 20px;
+  background-color: yellow;
+  z-index: 100;
+}
+
+#Target {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 60px;
+  height: 60px;
+  background-color: DarkGreen;
+}
+#Scene1_picture {
+  background-image: url(" http://i.ytimg.com/vi/l_9Mgva3-R0/maxresdefault.jpg");
+  position: fixed;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 1000px;
+  height: 850px;
+  right: 175px;
+  top: 10px;
+  display: none;
+}
+
+.target {
+  float: left;
+  width: 60px;
+  height: 60px;
+  background-color: purple;
+}
+
+#next {
+  background-image: url("http://www.clker.com/cliparts/1/f/a/2/1349807104707654381Next%20Button.svg.hi.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 75px;
+  height: 75px;
+  display: none;
+}
+
+#back {
+  background-image: url("http://www.mycra.com.au/images/buttons/back-button.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 75px;
+  height: 75px;
+  display: none;
+}
+
+#Scene2_text {
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 60px;
+  left: 450px;
+}
+
+#Scene3_text {
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  bottom: 60px;
+  left: 550px;
+}
+
+#Scene2_picture {
+  background-image: url("https://2.bp.blogspot.com/-Tw1BhBrmrak/WnvfxX0jzwI/AAAAAAABPB8/q2HVbGk2gWs8mEzmFci2WHVKa8tyxLtqACKgBGAs/s1600/5a0ac13a5a997e1c2cea108f.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 1000px;
+  height: 600px;
+  left: 300px;
+  top: 10px;
+  display: none;
+}
+
+#Scene3_picture {
+  background-image: url("https://viacom18-res.cloudinary.com/image/upload/f_auto,q_auto:eco,fl_lossy/kimg/kimg/23ed2c91916a41558bc1e76ad8738f6e_1280X720.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 1000px;
+  height: 850px;
+  left: 175px;
+  top: 10px;
+  display: none;
+}
+
+#home_button {
+  background-image: url("https://www.hope-of-israel.org/img/roundyelhomebutton.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  left: 90px;
+  bottom: 3px;
+  display: none;
+}
+
+#Scene4_text {
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 525px;
+  bottom: 50px;
+  display: none;
+}
+
+#Scene4_picture {
+  background-image: url("https://watchfulltvseries.net/wp-content/uploads/2017/07/peter-rabbit-1024x576.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 1000px;
+  height: 850px;
+  left: 275px;
+  top: 10px;
+  display: none;
+  clip: rect(0px, 800px, 850px, 0px);
+}
+
+ #Scene5_text {
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 300px;
+  bottom: 10px;
+  display: none;
+}
+
+
+#Scene6_text{
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 350px;
+  bottom: 10px;
+  display: none;
+}
+
+#Image_not_available{
+  background-image:url("http://www.chileplanet.eu/schede/pepper/Sorry%20image%20not%20available.-2.jpg");
+  background-size:contain;
+  background-repeat: no-repeat;
+  width:775px;
+  height:600px;
+  right:200px;
+  top:2.5px;
+  display:none;  
+}
+
+#a_good_rabbit_never_gives_up{
+  background-image:url("https://www.beatrix-potter-shop.co.uk/app/uploads/2017/04/1488979778_peter6.jpg");
+  background-size:contain;
+  background-repeat:no-repeat;
+  width:775px;
+  height:600px;
+  right:200px;
+  top:5px;
+  display:none;
+}
+
+#Scene7_text{
+  background-size:contain;
+  background-repeat:no-repeat;
+  right:200px;
+  bottom:0px;
+  display:none;
+}
+
+#Scene8_text{
+  background-size: contain;
+  background-repeat:no-repeat;
+  
+}
+
+#Scene8_audio{
+  background-image:url("C:\Users\xiaow\Documents\Sound recordings");
+}

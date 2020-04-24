@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <!-- TODO: DEBUG RLN - This is NOT where CodePen.io put jquery  -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+      <meta name="apple-mobile-web-app-title" content="CodePen">
+      <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+      <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+      <meta name="robots" content="noindex">
+      <title>inline Local - CodePen - XW(tiny andy) shoot game 2</title>
+      <style>
+         html {
+         background-color: LightBlue;
+         }
+         body {
+         background-size: cover;
+         background-repeat: no-repeat;
+         height: 100vh;
+         margin: 0;
+         place-items: center;
+         font-family: "Work Sans", sans-serif;
+         display: grid;
+         }
+         h1 {
+         background: white;
+         border: 1px solid #777;
+         padding: 1rem 3rem;
+         }
+         #Bullet {
+         position: absolute;
+         top: 90vh;
+         width: 20px;
+         height: 20px;
+         border: 4px solid blue;
+         border-radius: 20px;
+         background-color: yellow;
+         z-index: 100;
+         }
+         #Target {
+         position: fixed;
+         top: 10px;
+         left: 10px;
+         width: 60px;
+         height: 60px;
+         background-color: DarkGreen;
+         }
+         #Scene1_picture {
+         background-image: url(" http://i.ytimg.com/vi/l_9Mgva3-R0/maxresdefault.jpg");
+         position: fixed;
+         background-size: contain;
+         background-repeat: no-repeat;
+         width: 1000px;
+         height: 850px;
+         right: 175px;
+         top: 10px;
+         display: none;
+         }
+         .target {
+         float: left;
+         width: 60px;
+         height: 60px;
+         background-color: purple;
+         }
+         #next {
+         background-image: url("http://www.clker.com/cliparts/1/f/a/2/1349807104707654381Next%20Button.svg.hi.png");
+         background-size: contain;
+         background-repeat: no-repeat;
+         position: absolute;
+         bottom: 10px;
+         right: 10px;
+         width: 75px;
+         height: 75px;
+         display: none;
+         }
+         #back {
+         background-image: url("http://www.mycra.com.au/images/buttons/back-button.png");
+         background-size: contain;
+         background-repeat: no-repeat;
+         position: absolute;
+         bottom: 10px;
+         left: 10px;
+         width: 75px;
+         height: 75px;
+         display: none;
+         }
+         #Scene2_text {
+         background-size: contain;
+         background-repeat: no-repeat;
+         position: absolute;
+         bottom: 60px;
+         left: 450px;
+         }
+         #Scene3_text {
+         background-size: contain;
+         background-repeat: no-repeat;
+         position: absolute;
+         bottom: 60px;
+         left: 550px;
+         }
+         #Scene2_picture {
+         background-image: url("https://2.bp.blogspot.com/-Tw1BhBrmrak/WnvfxX0jzwI/AAAAAAABPB8/q2HVbGk2gWs8mEzmFci2WHVKa8tyxLtqACKgBGAs/s1600/5a0ac13a5a997e1c2cea108f.png");
+         background-size: contain;
+         background-repeat: no-repeat;
+         position: absolute;
+         width: 1000px;
+         height: 600px;
+         left: 300px;
+         top: 10px;
+         display: none;
+         }
+         #Scene3_picture {
+         background-image: url("https://viacom18-res.cloudinary.com/image/upload/f_auto,q_auto:eco,fl_lossy/kimg/kimg/23ed2c91916a41558bc1e76ad8738f6e_1280X720.jpg");
+         background-size: contain;
+         background-repeat: no-repeat;
+         position: absolute;
+         width: 1000px;
+         height: 850px;
+         left: 175px;
+         top: 10px;
+         display: none;
+         }
+         #home_button {
+         background-image: url("https://www.hope-of-israel.org/img/roundyelhomebutton.png");
+         background-size: contain;
+         background-repeat: no-repeat;
+         position: absolute;
+         width: 80px;
+         height: 80px;
+         left: 90px;
+         bottom: 3px;
+         display: none;
+         }
+         #Scene4_text {
+         background-size: contain;
+         background-repeat: no-repeat;
+         position: absolute;
+         left: 525px;
+         bottom: 50px;
+         display: none;
+         }
+         #Scene4_picture {
+         background-image: url("https://watchfulltvseries.net/wp-content/uploads/2017/07/peter-rabbit-1024x576.jpg");
+         background-size: contain;
+         background-repeat: no-repeat;
+         position: absolute;
+         width: 1000px;
+         height: 850px;
+         left: 275px;
+         top: 10px;
+         display: none;
+         clip: rect(0px, 800px, 850px, 0px);
+         }
+         #Scene5_text {
+         background-size: contain;
+         background-repeat: no-repeat;
+         position: absolute;
+         left: 300px;
+         bottom: 10px;
+         display: none;
+         }
+         #Scene6_text{
+         background-size: contain;
+         background-repeat: no-repeat;
+         position: absolute;
+         left: 350px;
+         bottom: 10px;
+         display: none;
+         }
+         #Image_not_available{
+         background-image:url("http://www.chileplanet.eu/schede/pepper/Sorry%20image%20not%20available.-2.jpg");
+         background-size:contain;
+         background-repeat: no-repeat;
+         width:775px;
+         height:600px;
+         right:200px;
+         top:2.5px;
+         display:none;
+         }
+         #a_good_rabbit_never_gives_up{
+         background-image:url("https://www.beatrix-potter-shop.co.uk/app/uploads/2017/04/1488979778_peter6.jpg");
+         background-size:contain;
+         background-repeat:no-repeat;
+         width:775px;
+         height:600px;
+         right:200px;
+         top:5px;
+         display:none;
+         }
+         #Scene7_text{
+         background-size:contain;
+         background-repeat:no-repeat;
+         right:200px;
+         bottom:0px;
+         display:none;
+         }
+         #Scene8_text{
+         background-size: contain;
+         background-repeat:no-repeat;
+         }
+         #Scene8_audio{
+         background-image:url("C:\Users\xiaow\Documents\Sound recordings");
+         }
+      </style>
+      <script>
+         window.console = window.console || function(t) {};
+      </script>
+      <script>
+         if (document.location.search.match(/type=embed/gi)) {
+         window.parent.postMessage("resize", "*");
+         }
+      </script>
+   </head>
+   <body translate="no">
+      <span id="Bullet">&nbsp;</span>
+      <span id="Scene1_picture" class="scene_picture">&nbsp;</span>
+      <span id="next" onclick="next();">&nbsp;</span>
+      <span id="back" onclick="back();">&nbsp;</span>
+      <span id="home_button" onclick="home();">&nbsp;</span>
+      <p id="Scene4_text" class="scene_text">&nbsp;</p>
+      <p id="Scene5_text" class="scene_text">&nbsp;</p>
+      <p id="Scene6_text" class="scene_text">&nbsp;</p>
+      <p id="Scene7_text" class="scene_text">&nbsp;</p>
+      <p id="Scene8_text" class="scene_text">&nbsp;</p>
+      <span id="Scene4_picture" class="scene_picture">&nbsp;</span>
+      <span id="Scene2_picture" class="scene_picture">&nbsp;</span>
+      <span id="Scene3_picture" class="scene_picture">&nbsp;</span>
+      <span id="Image_not_available">&nbsp;</span>
+      <span id="a_good_rabbit_never_gives_up">&nbsp;</span>
+      <p id="Scene2_text" class="scene_text"></p>
+      <p id="Scene3_text" class="scene_text"></p>
+      <span id="target">&nbsp;</span>
+      <audio id="Scene8_audio">&nbsp;</audio>
+      <div class="target" onclick="next();"></div>
+      <div class="target"></div>
+      <div class="target"></div>
+      <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+      <!-- TODO: DEBUG RLN - This is where CodePen.io put jquery  -->
+      <!--  script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script -->
+      <script id="rendered-js">
+         var $screen = $(document);
+         var $scene = 0;
+         var $totalNumScenes = 8;
+         const $appear_and_fade_time = 600; //in milliseconds
+         const speed = 9000;
+         const buffer = 20;
+         const $targets = $(".target");
+         console.info("Target count = " + $targets.length);
+         const $bullet = $("#Bullet");
+         
+         //Story Place
+         const $Scene2_text = "One day, Peter, Benjamin,and Lily went to Mr.Greggor's Garden to pick vegetables.";
+         const $Scene3_text = "Suddenly, a devious fox called Mr.Tod has appeared in front of them!";
+         const $Scene4_text = "'Run!',they squeaked, horrified.";
+         const $Scene5_text = "The devious fox is becoming nearer and nearer from the bunnies. At last, they are all captured in a tight, metal cage.";
+         const $Scene6_text = "'What should we do!',screamed Benjamin.";
+         const $Scene7_text = "'A good rabbit never gives up,' Peter said quietly and confidently. 'I have an excellent plan.'";
+         const $Scene8_text = "'Lily, find a long rope. Benjamin, once Lily finds a long rope, swing the rope hard at Mr.Tod and tie him until he cannot move.'";
+         const $Scene9_text = "So Lily searched again and again in her 'Just-In-Case' pocket, finally finding a hard and firm rope that could stretch all the way to the end of Mr.Tod's house.";
+         const $Scene10_text = "Benjamin, grabbing the rope, swinged it hard onto Mr.Tod. Mr.Tod, losing his ballance, fell hard to the ground with a loud bang.";
+         const $Scene11_text = "'Ouch!', Mr.Tod screamed, as Benjamin swiftly tied him in a thick, long rope.";
+         //Story Place
+         
+         
+         $targets.click(function (event) {
+         shootMe(event);
+         });
+         $targets.animate(
+         {
+         top: $screen.height() - ($targets.height() + buffer),
+         left: $screen.width() - ($targets.width() + buffer) },
+         
+         speed);
+         
+         var targetModified = false;
+         function shootMe(event) {
+         var $target = $(event.target);
+         $target.stop();
+         $bullet.animate(
+         {
+         top: $target.offset().top + ($target.height() - $bullet.height()) / 2,
+         left: $target.offset().left + ($target.width() - $bullet.width()) / 2 },
+         
+         function () {
+         if (targetModified) {
+         $target.css({
+         "background-color": "",
+         border: "",
+         "border-radius": "" });
+         
+         $target.animate(
+         {
+         top: 0,
+         left: $screen.width() - ($target.width() + buffer) },
+         
+         speed);
+         
+         } else {
+         $target.css({
+         "background-color": "rgb(120, 200, 0)",
+         border: "4px dashed gray",
+         "border-radius": "44px" });
+         
+         $target.animate(
+         {
+         top: 0,
+         left: 0 },
+         
+         speed);
+         
+         }
+         targetModified = !targetModified;
+         });
+         
+         }
+         
+         function showSceneOne() {
+         $(".target").hide(0);
+         $("#Bullet").hide(0);
+         $("#back").fadeOut($appear_and_fade_time);
+         $("#back").each(function () {
+         this.style.pointerEvents = "none";
+         });
+         $("#home_button").each(function () {
+         this.style.pointerEvents = "none";
+         });
+         $("#home_button").fadeOut($appear_and_fade_time);
+         $("#next").each(function () {
+         this.style.pointerEvents = "auto";
+         });
+         $("#next").fadeIn($appear_and_fade_time);
+         $("#Image_not_available").hide(0);
+         $("#a_good_rabbit_never_gives_up").hide(0);
+         }
+         
+         function showSceneTwo() {
+         $("#Scene2_text").text($Scene2_text);
+         $("#back").each(function () {
+         this.style.pointerEvents = "auto";
+         });
+         $("#back").fadeIn($appear_and_fade_time);
+         $("#home_button").fadeIn($appear_and_fade_time);
+         $("#home_button").each(function () {
+         this.style.pointerEvents = "auto";
+         });
+         }
+         
+         function showSceneThree() {
+         $("#Scene3_text").text($Scene3_text);
+         }
+         
+         function showSceneFour() {
+         $("#Scene4_text").text($Scene4_text);
+         $("#Image_not_available").hide(0);
+         }
+         
+         function showSceneFive() {
+         $("#Scene5_text").text($Scene5_text);
+         $("#Image_not_available").show($appear_and_fade_time);
+         }
+         
+         function showSceneSix() {
+         $("#Scene6_text").text($Scene6_text);
+         $("#Image_not_available").show($appear_and_fade_time);
+         $("#a_good_rabbit_never_gives_up").hide(0);
+         }
+         
+         function showSceneSeven() {
+         $("#Image_not_available").hide(0);
+         $("#Scene7_text").text($Scene7_text);
+         $("#a_good_rabbit_never_gives_up").show($appear_and_fade_time);
+         }
+         
+         function showSceneEight() {
+         $("#Scene8_text").text($Scene8_text);
+         $("#a_good_rabbit_never_gives_up").hide(0);
+         $("#Image_not_available").hide(0);
+         }
+         
+         function showCurrentScene() {
+         $(".scene_text").hide(0);
+         $("#Scene" + $scene + "_text").show($appear_and_fade_time);
+         $(".scene_picture").hide(0);
+         $("#Scene" + $scene + "_picture").show($appear_and_fade_time);
+         if ($scene === 1) {
+         showSceneOne();
+         } else if ($scene === 2) {
+         showSceneTwo();
+         } else if ($scene === 3) {
+         showSceneThree();
+         } else if ($scene === 4) {
+         showSceneFour();
+         } else if ($scene === 5) {
+         showSceneFive();
+         } else if ($scene === 6) {
+         showSceneSix();
+         } else if ($scene === 7) {
+         showSceneSeven();
+         } else if ($scene === 8) {
+         showSceneEight();
+         }
+         }
+         
+         function next() {
+         $scene = $scene + 1;
+         showCurrentScene();
+         if ($scene === $totalNumScenes) {
+         $("#next").each(function () {
+         this.style.pointerEvents = "none";
+         });
+         $("#next").fadeOut($appear_and_fade_time);
+         }
+         }
+         
+         function back() {
+         $scene = $scene - 1;
+         showCurrentScene();
+         $("#next").fadeIn($appear_and_fade_time);
+         if ($scene === $totalNumScenes - 1) {
+         $("#next").each(function () {
+         this.style.pointerEvents = "auto";
+         });
+         }
+         }
+         
+         function home() {
+         $scene = 1;
+         showCurrentScene();
+         $("#next").each(function () {
+         this.style.pointerEvents = "auto";
+         });
+         $("#next").fadeIn($appear_and_fade_time);
+         }
+         //# sourceURL=pen.js
+      </script>
+   </body>
+</html>
