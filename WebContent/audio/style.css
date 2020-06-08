@@ -1,0 +1,44 @@
+body {
+  background-color: #323232;
+  color: turquoise;
+  font-weight: 300;
+  height: 100vh;
+  margin: 0;
+  align-items: center;
+/*   justify-content: center;
+  text-align: center;
+ */  font-family: Helvetica neue, roboto;
+}
+
+.configDiv {
+	float: left;
+}
+
+.configDiv {
+	border: 2px solid blue;
+	overflow: hidden;
+	width: 400px;
+}
+
+.configDiv:not(:first-child) {
+	margin-left: 20px;
+}
+
+img {
+/*   width: 56px;
+  height: 48px; */
+}
+
+/* h1 {
+  font-weight: 200;
+  font-style: 26px;
+  margin: 10px;
+}
+
+svg {
+	margin: 0 auto;
+	display: block;
+	border: solid 1px blue;
+	background-color: pink;
+}
+ */

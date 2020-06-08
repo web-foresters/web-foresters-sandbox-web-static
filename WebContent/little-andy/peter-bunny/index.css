@@ -54,6 +54,7 @@ h1 {
   width: 60px;
   height: 60px;
   background-color: purple;
+  position: relative;
 }
 
 #next {
@@ -66,6 +67,11 @@ h1 {
   width: 75px;
   height: 75px;
   display: none;
+  z-index: 500;
+}
+
+.scene_picture {
+	z-index: 200;
 }
 
 #back {
@@ -210,5 +216,5 @@ h1 {
 }
 
 #Scene8_audio{
-  background-image:url("C:\Users\xiaow\Documents\Sound recordings");
+/*   background-image:url("C:\Users\xiaow\Documents\Sound recordings"); */
 }

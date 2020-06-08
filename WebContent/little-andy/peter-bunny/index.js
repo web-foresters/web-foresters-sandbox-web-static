@@ -22,16 +22,23 @@ const $Scene11_text = "'Ouch!', Mr.Tod screamed, as Benjamin swiftly tied him in
 //Story Place
 
 
-$targets.click(function (event) {
-  shootMe(event);
+$(function() {
+	$targets.click(function (event) {
+	  shootMe(event);
+	});
+	  console.info("Moving targets ", $screen.width(), $targets.width(), buffer);
+//	  console.info("Moving targets to " + $screen.width() - ($targets.width() + buffer) + "," + $screen.height() - ($targets.height() + buffer));
+	$targets.animate(
+	  {
+	    top: $screen.height() - ($targets.height() + buffer),
+	    left: $screen.width() - ($targets.width() + buffer)
+	  },
+	  speed,
+	  () => {
+		  $targets.fadeOut();
+	  }
+	);
 });
-$targets.animate(
-  {
-    top: $screen.height() - ($targets.height() + buffer),
-    left: $screen.width() - ($targets.width() + buffer)
-  },
-  speed
-);
 var targetModified = false;
 function shootMe(event) {
   var $target = $(event.target);
