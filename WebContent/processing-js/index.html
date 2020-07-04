@@ -8,24 +8,47 @@ https://github.com/Team-Code/KA_Offline -->
 </head>
  <body>
  	<h1>Don't use &quot;while&quot; as 1st canvas does as this is deprecated.  Use method in 2nd canvas.</h1>
- 	<a href="https://www.khanacademy.org/computer-programming/processingjs-inside-webpages-template/5157014494511104" target="_blank">Source of 1st canvas</a>
-    <p align="center">
-		<!--This draws the Canvas on the webpage -->
-	      <canvas id="mycanvas"></canvas> 
-    </p>
 
-<!-- 	<div>
+	<div style="float: left; width: 45%;">
 		<label for="Editor">Editor:</label>
-		<textarea id="Editor" style="width: 80%; min-height: 80px;"></textarea>
+		<br/>
+		<textarea id="Editor" style="width: 80%; min-height: 280px;">
+size(400, 400); 
+frameRate(30);
+
+fill(55, 255, 0);
+ellipse(200, 200, 100, 100); // Face
+noFill();
+stroke(0, 0, 0);
+strokeWeight(2);
+arc(200, 200, 70, 60, 0, PI); // Mouth
+fill(0, 0, 0);
+ellipse(222, 180, 10, 10); // Right eye
+ellipse(177, 180, 10, 10); // Left eye
+		</textarea>
+		<br/>
 		<button type="button" onclick="runEditor();">Run!</button>
 	</div>
- -->
+
+    <div style="float: right; width: 45%;">
+		<!--This draws the Canvas on the webpage -->
+	      <canvas id="mycanvas"></canvas> 
+    </div>
+
+	<br clear="both"/>
+
 	<div>
 		<button type="button" onclick="showSecondCanvas();">Show Second Canvas</button>
-	
-		<a href="http://processingjs.org/reference/" target="_blank">Processing.js Documentation</a>
-		<a href="http://processingjs.org/learning/" target="_blank">Processing.js Implementation</a>
-		<a href="https://www.khanacademy.org/computing/computer-programming/programming-games-visualizations/advanced-development-tools/a/using-processingjs-outside-khan-academy" target="_blank">K.A. Notes for Processing-JS</a>
+		<br/>
+		<label>Links:</label>
+		<ul>
+			<li><a href="https://www.khanacademy.org/computer-programming/processingjs-inside-webpages-template/5157014494511104" target="_blank">Source of 1st canvas</a></li>
+			<li><a href="http://processingjs.org/reference/" target="_blank">Processing.js Documentation</a></li>
+			<li><a href="http://processingjs.org/learning/" target="_blank">Processing.js Implementation</a></li>
+			<li>
+				<a href="https://www.khanacademy.org/computing/computer-programming/programming-games-visualizations/advanced-development-tools/a/using-processingjs-outside-khan-academy" target="_blank">K.A. Notes for Processing-JS</a>
+			</li>
+		</ul>
 	</div>
  </body>
  
@@ -88,9 +111,19 @@ https://github.com/Team-Code/KA_Offline -->
       var processingInstance = new Processing(canvas, sketchProc); 
 	}
 
-/* 	    function runEditor() {
-	    	
+ 	function getEditor() {
+ 		return document.getElementById("Editor");
+ 	}
+
+	    function runEditor() {
+			var sketchProc = function(processingInstance) {
+				with (processingInstance) {
+					eval(getEditor().value);
+				}
+			};
+			var canvas = getCanvas(); 
+			var processingInstance = new Processing(canvas, eval(sketchProc)); 
 	    }
- */</script>
+</script>
 
 </html>
