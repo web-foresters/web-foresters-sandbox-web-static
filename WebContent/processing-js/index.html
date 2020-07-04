@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- This is based on DillingerLee's great template here:
+https://github.com/Team-Code/KA_Offline -->
+<html> 
+ <head>
+    <title>Processing.JS inside Webpages: Template</title> 
+	<link rel="icon" href="../images/wf-icon-mix.png" type="img/png">    
+</head>
+ <body>
+ 	<h1>Don't use &quot;while&quot; as 1st canvas does as this is deprecated.  Use method in 2nd canvas.</h1>
+ 	<a href="https://www.khanacademy.org/computer-programming/processingjs-inside-webpages-template/5157014494511104" target="_blank">Source of 1st canvas</a>
+    <p align="center">
+		<!--This draws the Canvas on the webpage -->
+	      <canvas id="mycanvas"></canvas> 
+    </p>
+
+	<button type="button" onclick="showSecondCanvas();">Show Second Canvas</button>
+
+	<a href="http://processingjs.org/reference/" target="_blank">Processing.js Documentation</a>
+	<a href="http://processingjs.org/learning/" target="_blank">Processing.js Implementation</a>
+	<a href="https://www.khanacademy.org/computing/computer-programming/programming-games-visualizations/advanced-development-tools/a/using-processingjs-outside-khan-academy" target=
+	_blank">K.A. Notes for Processing-JS</a>
+ </body>
+ 
+ <!-- Run all the JavaScript stuff -->
+ <!-- Include the processing.js library -->
+ <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
+ <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+ 
+ <script>
+    var sketchProc = function(processingInstance) {
+     with (processingInstance) {
+        size(400, 400); 
+        frameRate(30);
+        
+        // ProgramCodeGoesHere
+        fill(255, 255, 0);
+        ellipse(200, 200, 200, 200);
+        noFill();
+        stroke(0, 0, 0);
+        strokeWeight(2);
+        arc(200, 200, 150, 100, 0, PI);
+        fill(0, 0, 0);
+        ellipse(250, 200, 10, 10);
+        ellipse(153, 200, 10, 10);
+    }};
+
+    // Get the canvas that Processing-js will use
+    var canvas = document.getElementById("mycanvas"); 
+    // Pass the function sketchProc (defined in myCode.js) to Processing's constructor.
+    var processingInstance = new Processing(canvas, sketchProc); 
+
+	function showSecondCanvas() {
+	    var sketchProc = function(processingInstance) {
+	        var pi = processingInstance;
+//	       with (processingInstance) {
+//	       (function(pi) {
+	          pi.size(400, 400); 
+	          pi.frameRate(30);
+	          
+	          // ProgramCodeGoesHere
+	          pi.fill(255, 25, 111);
+	          pi.ellipse(200, 200, 200, 200);
+	          pi.noFill();
+	          pi.stroke(0, 0, 0);
+	          pi.strokeWeight(2);
+	          pi.arc(200, 200, 150, 100, 0, pi.PI);
+	          pi.fill(0, 0, 0);
+	          pi.ellipse(250, 200, 10, 10);
+	          pi.ellipse(153, 200, 10, 10);
+	          pi.textSize(20);
+	          pi.text("This is the second canvas.", 90, 50);
+	  };//    }(processingInstance));
+
+      // Get the canvas that Processing-js will use
+      var canvas = document.getElementById("mycanvas"); 
+      // Pass the function sketchProc (defined in myCode.js) to Processing's constructor.
+      var processingInstance = new Processing(canvas, sketchProc); 
+	}
+</script>
+
+</html>
