@@ -14,12 +14,19 @@ https://github.com/Team-Code/KA_Offline -->
 	      <canvas id="mycanvas"></canvas> 
     </p>
 
-	<button type="button" onclick="showSecondCanvas();">Show Second Canvas</button>
-
-	<a href="http://processingjs.org/reference/" target="_blank">Processing.js Documentation</a>
-	<a href="http://processingjs.org/learning/" target="_blank">Processing.js Implementation</a>
-	<a href="https://www.khanacademy.org/computing/computer-programming/programming-games-visualizations/advanced-development-tools/a/using-processingjs-outside-khan-academy" target=
-	_blank">K.A. Notes for Processing-JS</a>
+<!-- 	<div>
+		<label for="Editor">Editor:</label>
+		<textarea id="Editor" style="width: 80%; min-height: 80px;"></textarea>
+		<button type="button" onclick="runEditor();">Run!</button>
+	</div>
+ -->
+	<div>
+		<button type="button" onclick="showSecondCanvas();">Show Second Canvas</button>
+	
+		<a href="http://processingjs.org/reference/" target="_blank">Processing.js Documentation</a>
+		<a href="http://processingjs.org/learning/" target="_blank">Processing.js Implementation</a>
+		<a href="https://www.khanacademy.org/computing/computer-programming/programming-games-visualizations/advanced-development-tools/a/using-processingjs-outside-khan-academy" target="_blank">K.A. Notes for Processing-JS</a>
+	</div>
  </body>
  
  <!-- Run all the JavaScript stuff -->
@@ -28,6 +35,9 @@ https://github.com/Team-Code/KA_Offline -->
  <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
  
  <script>
+ 	function getCanvas() {
+ 		return document.getElementById("mycanvas");
+ 	}
     var sketchProc = function(processingInstance) {
      with (processingInstance) {
         size(400, 400); 
@@ -46,7 +56,7 @@ https://github.com/Team-Code/KA_Offline -->
     }};
 
     // Get the canvas that Processing-js will use
-    var canvas = document.getElementById("mycanvas"); 
+    var canvas = getCanvas(); 
     // Pass the function sketchProc (defined in myCode.js) to Processing's constructor.
     var processingInstance = new Processing(canvas, sketchProc); 
 
@@ -73,10 +83,14 @@ https://github.com/Team-Code/KA_Offline -->
 	  };//    }(processingInstance));
 
       // Get the canvas that Processing-js will use
-      var canvas = document.getElementById("mycanvas"); 
+      var canvas = getCanvas(); 
       // Pass the function sketchProc (defined in myCode.js) to Processing's constructor.
       var processingInstance = new Processing(canvas, sketchProc); 
 	}
-</script>
+
+/* 	    function runEditor() {
+	    	
+	    }
+ */</script>
 
 </html>
