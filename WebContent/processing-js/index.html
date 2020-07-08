@@ -5,6 +5,7 @@ https://github.com/Team-Code/KA_Offline -->
  <head>
     <title>Processing.JS inside Webpages: Template</title> 
 	<link rel="icon" href="../images/wf-icon-mix.png" type="img/png">    
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
  <body>
  	<h1>Don't use &quot;while&quot; as 1st canvas does as this is deprecated.  Use method in 2nd canvas.</h1>
@@ -13,21 +14,44 @@ https://github.com/Team-Code/KA_Offline -->
 		<label for="Editor">Editor:</label>
 		<br/>
 		<textarea id="Editor" style="width: 80%; min-height: 280px;">
-size(400, 400); 
-frameRate(30);
+var canvasWidth = 400;
+var faceCenter = 10;
 
-fill(55, 255, 0);
-ellipse(200, 200, 100, 100); // Face
-noFill();
-stroke(0, 0, 0);
-strokeWeight(2);
-arc(200, 200, 70, 60, 0, PI); // Mouth
-fill(0, 0, 0);
-ellipse(222, 180, 10, 10); // Right eye
-ellipse(177, 180, 10, 10); // Left eye
+size(canvasWidth, 400); 
+frameRate(30);
+		
+//var img = loadImage("laDefense.jpg");
+//image(img, 10, 10);
+
+var draw = function() {
+	background(0, 0, 255);
+	fill(55, 255, 0);
+	ellipse(faceCenter, 200, 100, 100); // Face
+	noFill();
+	stroke(0, 0, 0);
+	strokeWeight(2);
+	arc(faceCenter, 200, 70, 60, 0, PI); // Mouth
+	fill(0, 0, 0);
+	ellipse(faceCenter + 22, 180, 10, 10); // Right eye
+	ellipse(faceCenter - 23, 180, 10, 10); // Left eye
+	faceCenter = (faceCenter + 1) % canvasWidth;
+};
+		
+//var img = loadImage("laDefense.jpg");
+//image(img, 10, 10);
 		</textarea>
 		<br/>
 		<button type="button" onclick="runEditor();">Run!</button>
+		<label for="FrameRate">Frame Rate:</label>
+		<select id="FrameRate" onchange="changeFrameRate();">
+			<option val="0">0</option>
+			<option val="10">10</option>
+			<option val="20">20</option>
+			<option val="30" selected>30</option>
+			<option val="40">40</option>			
+			<option val="50">50</option>			
+			<option val="60">60</option>			
+		</select>
 	</div>
 
     <div style="float: right; width: 45%;">
@@ -55,14 +79,27 @@ ellipse(177, 180, 10, 10); // Left eye
  <!-- Run all the JavaScript stuff -->
  <!-- Include the processing.js library -->
  <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
- <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+ <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.js"></script> 
  
  <script>
  	function getCanvas() {
  		return document.getElementById("mycanvas");
  	}
+ 	$('#mycanvas').on('mousedown', canvasMousePressed);
+ 	function canvasMousePressed() {
+ 		if (pi) {
+ 			pi.mouseIsPressed = true;
+ 		}
+ 	}
+ 	$('#mycanvas').on('mouseup', canvasMouseNotPressed);
+ 	function canvasMouseNotPressed() {
+ 		if (pi) {
+ 			pi.mouseIsPressed = false;
+ 		}
+ 	}
     var sketchProc = function(processingInstance) {
      with (processingInstance) {
+    	var draw = function() {};
         size(400, 400); 
         frameRate(30);
         
@@ -115,14 +152,31 @@ ellipse(177, 180, 10, 10); // Left eye
  		return document.getElementById("Editor");
  	}
 
+ 	var pi;
 	    function runEditor() {
+	    	if (pi) {
+	    		pi.exit();
+	    	}
 			var sketchProc = function(processingInstance) {
+				pi = processingInstance;
+				pi.mouseIsPressed = false;
+				pi.getImage = pi.loadImage;
 				with (processingInstance) {
 					eval(getEditor().value);
 				}
 			};
-			var canvas = getCanvas(); 
+			var canvas = getCanvas();
 			var processingInstance = new Processing(canvas, eval(sketchProc)); 
+	    }
+	    
+	    function changeFrameRate() {
+	    	var fr = parseInt(document.getElementById('FrameRate').value, 10);
+	    	if (fr > 0) {
+		    	pi.frameRate(fr);
+	    		pi.loop();
+	    	} else {
+	    		pi.noLoop();
+	    	}
 	    }
 </script>
 
