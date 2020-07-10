@@ -80,78 +80,31 @@ var draw = function() {
  <!-- Include the processing.js library -->
  <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
  <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.js"></script> 
+ <script src="wf-coding-utils.js"></script>
  
  <script>
- 	function getCanvas() {
- 		return document.getElementById("mycanvas");
- 	}
- 	$('#mycanvas').on('mousedown', canvasMousePressed);
- 	function canvasMousePressed() {
- 		if (pi) {
- 			pi.mouseIsPressed = true;
- 		}
- 	}
- 	$('#mycanvas').on('mouseup', canvasMouseNotPressed);
- 	function canvasMouseNotPressed() {
- 		if (pi) {
- 			pi.mouseIsPressed = false;
- 		}
- 	}
-    var sketchProc = function(processingInstance) {
-     with (processingInstance) {
-    	var draw = function() {};
-        size(400, 400); 
-        frameRate(30);
-        
-        // ProgramCodeGoesHere
-        fill(255, 255, 0);
-        ellipse(200, 200, 200, 200);
-        noFill();
-        stroke(0, 0, 0);
-        strokeWeight(2);
-        arc(200, 200, 150, 100, 0, PI);
-        fill(0, 0, 0);
-        ellipse(250, 200, 10, 10);
-        ellipse(153, 200, 10, 10);
-    }};
 
-    // Get the canvas that Processing-js will use
-    var canvas = getCanvas(); 
-    // Pass the function sketchProc (defined in myCode.js) to Processing's constructor.
-    var processingInstance = new Processing(canvas, sketchProc); 
+ 	// FROM: https://stackoverflow.com/questions/5379120/get-the-highlighted-selected-text
+function getSelectionText() {
+    var text = "";
+    var activeEl = document.activeElement;
+    var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
+    if (
+      (activeElTagName == "textarea") || (activeElTagName == "input" &&
+      /^(?:text|search|password|tel|url)$/i.test(activeEl.type)) &&
+      (typeof activeEl.selectionStart == "number")
+    ) {
+        text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd);
+    } else if (window.getSelection) {
+        text = window.getSelection().toString();
+    }
+    return text;
+}
 
-	function showSecondCanvas() {
-	    var sketchProc = function(processingInstance) {
-	        var pi = processingInstance;
-//	       with (processingInstance) {
-//	       (function(pi) {
-	          pi.size(400, 400); 
-	          pi.frameRate(30);
-	          
-	          // ProgramCodeGoesHere
-	          pi.fill(255, 25, 111);
-	          pi.ellipse(200, 200, 200, 200);
-	          pi.noFill();
-	          pi.stroke(0, 0, 0);
-	          pi.strokeWeight(2);
-	          pi.arc(200, 200, 150, 100, 0, pi.PI);
-	          pi.fill(0, 0, 0);
-	          pi.ellipse(250, 200, 10, 10);
-	          pi.ellipse(153, 200, 10, 10);
-	          pi.textSize(20);
-	          pi.text("This is the second canvas.", 90, 50);
-	  };//    }(processingInstance));
-
-      // Get the canvas that Processing-js will use
-      var canvas = getCanvas(); 
-      // Pass the function sketchProc (defined in myCode.js) to Processing's constructor.
-      var processingInstance = new Processing(canvas, sketchProc); 
-	}
-
- 	function getEditor() {
- 		return document.getElementById("Editor");
- 	}
-
+/* document.onmouseup = document.onkeyup = document.onselectionchange = function() {
+  document.getElementById("sel").value = getSelectionText();
+};
+ */
  	var pi;
 	    function runEditor() {
 	    	if (pi) {
@@ -160,6 +113,7 @@ var draw = function() {
 			var sketchProc = function(processingInstance) {
 				pi = processingInstance;
 				pi.mouseIsPressed = false;
+				pi.keyIsPressed = false;
 				pi.getImage = pi.loadImage;
 				with (processingInstance) {
 					eval(getEditor().value);
