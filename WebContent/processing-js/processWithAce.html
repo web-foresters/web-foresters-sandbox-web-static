@@ -3,19 +3,15 @@
 https://github.com/Team-Code/KA_Offline -->
 <html> 
  <head>
-    <title>Processing.JS inside Webpages: Template</title> 
+    <title>Processing.JS inside Webpages with Ace Editor</title> 
 	<link rel="icon" href="../images/wf-icon-mix.png" type="img/png">    
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
  <body>
- 	<h1>Don't use &quot;while&quot; as 1st canvas does as this is deprecated.  Use method in 2nd canvas.</h1>
 
-	<a href="processWithAce.html">Processor with Ace Editor</a>
-
-	<div style="float: left; width: 45%;">
-		<label for="Editor">Editor:</label>
-		<br/>
-		<textarea id="Editor" style="width: 80%; min-height: 280px;">
+<div style="position: fixed; top: 0; left: 0; width: 100%; height: 50%;">
+	<div style="float: left; width: 45%; position: relative; height: 100%;">
+		<div id="Editor" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
 var canvasWidth = 400;
 var faceCenter = 10;
 
@@ -41,7 +37,16 @@ var draw = function() {
 		
 //var img = loadImage("laDefense.jpg");
 //image(img, 10, 10);
-		</textarea>
+		</div>
+	</div>
+
+    <div style="float: right; width: 45%;">
+		<!--This draws the Canvas on the webpage -->
+	      <canvas id="mycanvas"></canvas> 
+	      <canvas id="NewCanvas" style="display: hidden;"></canvas> 
+    </div>
+
+	<div style="float: left;">
 		<br/>
 		<button type="button" onclick="runEditor();">Run!</button>
 		<label for="FrameRate">Frame Rate:</label>
@@ -56,10 +61,22 @@ var draw = function() {
 		</select>
 	</div>
 
-    <div style="float: right; width: 45%;">
-		<!--This draws the Canvas on the webpage -->
-	      <canvas id="mycanvas"></canvas> 
-    </div>
+</div>
+    
+<script src="../editor-ace/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    editor = ace.edit("Editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/javascript");
+    editor.on('change', editorChanged);
+
+    // Handle auto-restart with changes
+    function editorChanged(event) {
+    	console.log(event);
+    	runEditor();
+    }
+</script>
+
 
 	<br clear="both"/>
 
@@ -107,18 +124,26 @@ function getSelectionText() {
   document.getElementById("sel").value = getSelectionText();
 };
  */
+	function runEditor() {
+		try {
+			_runEditor();
+		} catch (err) {
+			console.log(err);
+		}
+	}
  	var pi;
-	    function runEditor() {
-	    	if (pi) {
-	    		pi.exit();
-	    	}
+	    function _runEditor() {
 			var sketchProc = function(processingInstance) {
+		    	if (pi) {
+		    		pi.exit();
+		    	}
 				pi = processingInstance;
+				pi.draw = function() {};
 				pi.mouseIsPressed = false;
 				pi.keyIsPressed = false;
 				pi.getImage = pi.loadImage;
-				with (processingInstance) {
-					eval(getEditor().value);
+				with (pi) {
+					eval(editor.getValue());
 				}
 			};
 			var canvas = getCanvas();
@@ -135,5 +160,4 @@ function getSelectionText() {
 	    	}
 	    }
 </script>
-
 </html>
