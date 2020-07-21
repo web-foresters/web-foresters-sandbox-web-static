@@ -23,6 +23,9 @@ frameRate(30);
 
 var draw = function() {
 	background(0, 0, 255);
+	textSize(30);
+	stroke(250, 250, 250);
+	text(processorNumber, faceCenter, 140);
 	fill(55, 255, 0);
 	ellipse(faceCenter, 200, 100, 100); // Face
 	noFill();
@@ -43,7 +46,6 @@ var draw = function() {
     <div style="float: right; width: 45%;">
 		<!--This draws the Canvas on the webpage -->
 	      <canvas id="mycanvas"></canvas> 
-	      <canvas id="NewCanvas" style="display: hidden;"></canvas> 
     </div>
 
 	<div style="float: left;">
@@ -132,22 +134,58 @@ function getSelectionText() {
 		}
 	}
  	var pi;
+ 	var piNumber = 0;
+
+ 		function exitPi() {
+			console.log("Exiting processor instance " + this.processorNumber);
+			this.origExit();
+		}
+ 		function noOp() {}
 	    function _runEditor() {
 			var sketchProc = function(processingInstance) {
-		    	if (pi) {
-		    		pi.exit();
-		    	}
-				pi = processingInstance;
-				pi.draw = function() {};
-				pi.mouseIsPressed = false;
-				pi.keyIsPressed = false;
-				pi.getImage = pi.loadImage;
-				with (pi) {
-					eval(editor.getValue());
+				piNumber++;
+				console.log("Starting processor instance " + piNumber + " ... " + (pi ? pi.processorNumber : ''));
+				var oldPi = pi;
+				try {
+					pi = processingInstance;
+					pi.processorNumber = piNumber;
+					pi.origExit = pi.exit;
+					pi.exit = exitPi;
+					pi.mouseIsPressed = false;
+					pi.keyIsPressed = false;
+					pi.getImage = pi.loadImage;
+					with (pi) {
+						eval(editor.getValue());
+					}
+					if (pi.draw) {
+						pi._draw = pi.draw;
+						pi.draw = function() {
+							try {
+								pi._draw();
+							} catch (err) {
+								console.log('pi.draw failed:', err);
+								pi.noLoop();
+							}
+						}
+					} else {
+						pi.draw = noOp;
+					}
+				} catch (err) {
+					console.log(err);
+					pi.exit();
+					pi = oldPi;
+					return false;
 				}
+		    	if (oldPi) {
+		    		oldPi.exit();
+		    	}
 			};
 			var canvas = getCanvas();
-			var processingInstance = new Processing(canvas, eval(sketchProc)); 
+			try {
+				new Processing(canvas, sketchProc); 
+			} catch (err) {
+				console.log(err);
+			}
 	    }
 	    
 	    function changeFrameRate() {
