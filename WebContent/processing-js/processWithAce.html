@@ -6,17 +6,64 @@ https://github.com/Team-Code/KA_Offline -->
     <title>Processing.JS inside Webpages with Ace Editor</title> 
 	<link rel="icon" href="../images/wf-icon-mix.png" type="img/png">    
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<style>
+body {
+/* 	background-color: beige; */
+}
+
+#WorkArea {
+	position: fixed;
+	top: 40;
+	left: 20;
+	width: 100%;
+	height: 50%;
+}
+
+#Menu {
+	position: fixed;
+	top: 50%;
+	margin-top: 10px;
+	width: 100%;
+}
+
+#Menu > * {
+	display: relative;
+	margin: 10px auto 0 auto;
+}
+
+
+#EditorWrapper {
+	float: left;
+	width: 45%;
+	position: relative;
+	height: 100%;
+}
+
+#Editor {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#MyCanvas {
+	position: relative;
+	margin-left: 30px;
+	height: 100%;
+ }
+
+	</style>
 </head>
  <body>
 
-<div style="position: fixed; top: 0; left: 0; width: 100%; height: 50%;">
-	<div style="float: left; width: 45%; position: relative; height: 100%;">
-		<div id="Editor" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+<div id="WorkArea">
+	<div id="EditorWrapper">
+		<div id="Editor">
 var canvasWidth = 400;
 var faceCenter = 10;
 
-size(canvasWidth, 400); 
-frameRate(30);
+//frameRate(30);
 		
 //var img = loadImage("laDefense.jpg");
 //image(img, 10, 10);
@@ -43,28 +90,29 @@ var draw = function() {
 		</div>
 	</div>
 
-    <div style="float: right; width: 45%;">
-		<!--This draws the Canvas on the webpage -->
-	      <canvas id="mycanvas"></canvas> 
-    </div>
-
-	<div style="float: left;">
-		<br/>
-		<button type="button" onclick="runEditor();">Run!</button>
-		<label for="FrameRate">Frame Rate:</label>
-		<select id="FrameRate" onchange="changeFrameRate();">
-			<option val="0">0</option>
-			<option val="10">10</option>
-			<option val="20">20</option>
-			<option val="30" selected>30</option>
-			<option val="40">40</option>			
-			<option val="50">50</option>			
-			<option val="60">60</option>			
-		</select>
-	</div>
+	<!--This draws the Canvas on the webpage -->
+	<canvas id="MyCanvas"></canvas> 
 
 </div>
-    
+
+<div id="Menu">
+	<button type="button" onclick="runEditor();">RESTART</button>
+	<button id="PauseButton" type="button" onclick="togglePause();">PAUSE</button>
+	<label for="FrameRate" style="display: none;">Frame Rate:</label>
+	<select id="FrameRate" onchange="changeFrameRate();" style="display: none;">
+		<option val="0">0</option>
+		<option val="10">10</option>
+		<option val="20">20</option>
+		<option val="30" selected>30</option>
+		<option val="40">40</option>
+		<option val="50">50</option>
+		<option val="60">60</option>
+		<option val="70">70</option>
+		<option val="80">80</option>
+		<option val="90">90</option>
+	</select>
+</div>
+
 <script src="../editor-ace/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
     editor = ace.edit("Editor");
@@ -133,12 +181,44 @@ function getSelectionText() {
 			console.log(err);
 		}
 	}
+ 	function togglePause() {
+ 		if (!paused) {
+ 			stopLooping();
+ 		} else {
+ 			continueLooping();
+ 		}
+ 	}
+ 	function stopLooping() {
+ 		try {
+ 			if (pi) {
+ 				pi.noLoop();
+ 				setPaused(true);
+ 			}
+ 		} catch (err) {
+			console.log(err);
+ 		}
+ 	}
+ 	function continueLooping() {
+ 		try {
+ 			if (pi) {
+ 				pi.loop();
+ 				setPaused(false);
+ 			}
+ 		} catch (err) {
+			console.log(err);
+ 		}
+ 	}
+
  	var pi;
  	var piNumber = 0;
-
+ 	var paused = false;
+		function setPaused(isPaused) {
+			paused = isPaused;
+			$('#PauseButton').text(isPaused ? "CONTINUE" : "PAUSE");
+		}
  		function exitPi() {
 			console.log("Exiting processor instance " + this.processorNumber);
-			this.origExit();
+			this._origExit();
 		}
  		function noOp() {}
 	    function _runEditor() {
@@ -149,11 +229,26 @@ function getSelectionText() {
 				try {
 					pi = processingInstance;
 					pi.processorNumber = piNumber;
-					pi.origExit = pi.exit;
+					pi._origExit = pi.exit;
 					pi.exit = exitPi;
 					pi.mouseIsPressed = false;
 					pi.keyIsPressed = false;
 					pi.getImage = pi.loadImage;
+					pi.size(400, 400);
+					pi._origSize = pi.size;
+					pi.size = noOp;
+					// Don't know how to use onPause/onLoop events or how to find out if PI is looping...
+					pi.paused = false;
+					pi._origNoLoop = pi.noLoop;
+					pi.noLoop = function () {
+						setPaused(true);
+						pi._origNoLoop();
+					};
+					pi._origLoop = pi.loop;
+					pi.loop = function () {
+						setPaused(false);
+						pi._origLoop();
+					};
 					with (pi) {
 						eval(editor.getValue());
 					}

@@ -1,9 +1,9 @@
 function getCanvas() {
-	return document.getElementById("mycanvas");
+	return document.getElementById("MyCanvas");
 }
 
 function get$Canvas() {
-	return $('#mycanvas');
+	return $('#MyCanvas');
 }
 // Mouse Events - BEGIN
 get$Canvas().on('mousedown', canvasMousePressed);
