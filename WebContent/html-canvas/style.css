@@ -1,0 +1,40 @@
+body {
+  background-color: #323232;
+  color: turquoise;
+  font-weight: 300;
+  height: 100vh;
+  margin: 0;
+  align-items: center;
+/*   justify-content: center;
+  text-align: center;
+ */  font-family: Helvetica neue, roboto;
+}
+
+.configDiv {
+	float: left;
+}
+
+#Config1 {
+	border: 2px solid blue;
+	overflow: hidden;
+	width: 400px;
+}
+
+#Config1 img {
+	position: relative;
+	top: -100px;
+	left: -80px;
+}
+
+#Canvas1 {
+	width: 80%;
+	height: 40%;
+	border: solid 1px orange;
+	margin: 20px;
+	background-color: white;
+}
+
+textarea {
+	width: 80%;
+	min-height: 100px;
+}

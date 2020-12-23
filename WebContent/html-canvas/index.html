@@ -1,0 +1,47 @@
+<!--
+/*
+ * License: 2020 Web Foresters, LLC (Michigan USA)
+ * Author: Raymond Naseef
+ */
+-->
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<title>WF HTML Canvas Sandbox</title>
+	<!-- link rel="icon" href="images/wf-business-icon-trans-300x300.png" type="img/png" -->
+	<link rel="icon" href="../images/wf-icon-mix.png" type="img/png">
+	<style type="text/css">
+		@import url(style.css);
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="script.js"></script>
+</head>
+
+<body>
+	<h1>WF HTML Canvas Sandbox</h1>
+	<canvas id="Canvas1">
+	</canvas>
+	<label>Example JS code to draw a black line:</label>
+	<br/>
+	<textarea id="Script">
+var canvas = new WfHtmlCanvas('Canvas1');
+var ctx = canvas.getContext();
+ctx.strokeStyle = '#000000';
+ctx.lineWidth = 5;
+canvas.drawLine(canvas.XY(30, 30), canvas.XY(100, 65));
+	</textarea>
+	<br/>
+	<button type="button" onclick="runScript();">Run!</button>
+	<script>
+		var nextScriptNumber = 1;
+		function runScript() {
+			var thisScriptNum = nextScriptNumber++;
+			console.log('Running Script ' + thisScriptNum + ':', $('#Script').val());
+			eval($('#Script').val());
+			console.log('Completed running Script ' + thisScriptNum + ':');
+		}
+/* 		$(function() {
+		});
+ */	</script>
+</body>
+
