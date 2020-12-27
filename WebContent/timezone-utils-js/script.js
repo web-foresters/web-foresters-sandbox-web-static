@@ -1,8 +1,9 @@
+const ONE_HOUR_SEC = 3600;
+
 $(function () {
 	//TODO: write your page related code here...
 //	console.log('Hello');
 	const now = new Date();
-	const ONE_HOUR_MS = 3600000;
 	// TODO: Currently coded to DST offset: need to check date to get the correct "NY TIME"
 	var nowNewYork = shiftTimeToNewYork(now); //new Date(now.getTime() - (ONE_HOUR_MS * 4));
 	$('#CurrentTimeLocal').text(getDateTimeString(now));
@@ -11,10 +12,14 @@ $(function () {
 });
 
 function shiftTimeToNewYork(date) {
-	var dateUtcMs = date.getTime() - date.getTimezoneOffset();
+	var dateUtcMs = date.getTime() + getTimezoneOffsetMs(date.getTimezoneOffset());
 	// TODO: code 5 hours for 03/14 01:59:59.999 to 11/07 01:59:59.999
 	// TODO: code 4 hours from 11/07 02:00:00
-	return new Date(dateUtcMs - getNewYorkTimezoneOffsetFor2020To2021(date));
+	return new Date(dateUtcMs - getTimezoneOffsetMs(getNewYorkTimezoneOffsetFor2020To2021(date)));
+}
+
+function getTimezoneOffsetMs(offsetMin) {
+	return offsetMin * 60000;
 }
 
 function getDateTimeString(date) {
