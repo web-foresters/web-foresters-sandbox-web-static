@@ -1,0 +1,471 @@
+Your order # ba4a9cd is for the following items: DSCN3001.  
+
+
+
+
+Time from midnight before DST to midnight before EST = 5,711 hours = 20559600000 ms
+ms per hour = 3600000
+
+
+NY time zone switches March 14, 2021 at 2am.
+	Time in MS on March 14 at 00:00:00 = 1615698000000	(UTC - 5hr)
+	Time in MS on March 14 at 01:59:59 = 1615705199000	(UTC - 5hr)
+	Time in MS on March 14 at 03:00:00 = 1615705200000	(UTC - 4hr)
+    ************  Of course there is no 02:00:00 on that day in NY (time machine!!!!!)  ************
+NY time zone switches November 7, 2021 at 2am.
+	time in MS on Nov 07 at 00:00:00 = 1636257600000	(UTC - 4hr)
+	time in MS on Nov 07 at 01:59:59 = 1636264799000	(UTC - 4hr)
+	*** FAKE TIME Nov 07 at 01:59:59 ~ 1636268399000	(UTC - 5hr)
+	time in MS on Nov 07 at 01:00:00 = 1636264800000	(UTC - 5hr)
+    ************  Here we are doing Superman trick of turning back time: let's duplicate 01:00  ************
+
+
+
+
+<!-- begin snippet: js hide: false console: true babel: null -->
+
+<!-- language: lang-js -->
+
+    var aryIannaTimeZones = [
+      'Europe/Andorra',
+      'Asia/Dubai',
+      'Asia/Kabul',
+      'Europe/Tirane',
+      'Asia/Yerevan',
+      'Antarctica/Casey',
+      'Antarctica/Davis',
+      'Antarctica/DumontDUrville', // https://bugs.chromium.org/p/chromium/issues/detail?id=928068
+      'Antarctica/Mawson',
+      'Antarctica/Palmer',
+      'Antarctica/Rothera',
+      'Antarctica/Syowa',
+      'Antarctica/Troll',
+      'Antarctica/Vostok',
+      'America/Argentina/Buenos_Aires',
+      'America/Argentina/Cordoba',
+      'America/Argentina/Salta',
+      'America/Argentina/Jujuy',
+      'America/Argentina/Tucuman',
+      'America/Argentina/Catamarca',
+      'America/Argentina/La_Rioja',
+      'America/Argentina/San_Juan',
+      'America/Argentina/Mendoza',
+      'America/Argentina/San_Luis',
+      'America/Argentina/Rio_Gallegos',
+      'America/Argentina/Ushuaia',
+      'Pacific/Pago_Pago',
+      'Europe/Vienna',
+      'Australia/Lord_Howe',
+      'Antarctica/Macquarie',
+      'Australia/Hobart',
+      'Australia/Currie',
+      'Australia/Melbourne',
+      'Australia/Sydney',
+      'Australia/Broken_Hill',
+      'Australia/Brisbane',
+      'Australia/Lindeman',
+      'Australia/Adelaide',
+      'Australia/Darwin',
+      'Australia/Perth',
+      'Australia/Eucla',
+      'Asia/Baku',
+      'America/Barbados',
+      'Asia/Dhaka',
+      'Europe/Brussels',
+      'Europe/Sofia',
+      'Atlantic/Bermuda',
+      'Asia/Brunei',
+      'America/La_Paz',
+      'America/Noronha',
+      'America/Belem',
+      'America/Fortaleza',
+      'America/Recife',
+      'America/Araguaina',
+      'America/Maceio',
+      'America/Bahia',
+      'America/Sao_Paulo',
+      'America/Campo_Grande',
+      'America/Cuiaba',
+      'America/Santarem',
+      'America/Porto_Velho',
+      'America/Boa_Vista',
+      'America/Manaus',
+      'America/Eirunepe',
+      'America/Rio_Branco',
+      'America/Nassau',
+      'Asia/Thimphu',
+      'Europe/Minsk',
+      'America/Belize',
+      'America/St_Johns',
+      'America/Halifax',
+      'America/Glace_Bay',
+      'America/Moncton',
+      'America/Goose_Bay',
+      'America/Blanc-Sablon',
+      'America/Toronto',
+      'America/Nipigon',
+      'America/Thunder_Bay',
+      'America/Iqaluit',
+      'America/Pangnirtung',
+      'America/Atikokan',
+      'America/Winnipeg',
+      'America/Rainy_River',
+      'America/Resolute',
+      'America/Rankin_Inlet',
+      'America/Regina',
+      'America/Swift_Current',
+      'America/Edmonton',
+      'America/Cambridge_Bay',
+      'America/Yellowknife',
+      'America/Inuvik',
+      'America/Creston',
+      'America/Dawson_Creek',
+      'America/Fort_Nelson',
+      'America/Vancouver',
+      'America/Whitehorse',
+      'America/Dawson',
+      'Indian/Cocos',
+      'Europe/Zurich',
+      'Africa/Abidjan',
+      'Pacific/Rarotonga',
+      'America/Santiago',
+      'America/Punta_Arenas',
+      'Pacific/Easter',
+      'Asia/Shanghai',
+      'Asia/Urumqi',
+      'America/Bogota',
+      'America/Costa_Rica',
+      'America/Havana',
+      'Atlantic/Cape_Verde',
+      'America/Curacao',
+      'Indian/Christmas',
+      'Asia/Nicosia',
+      'Asia/Famagusta',
+      'Europe/Prague',
+      'Europe/Berlin',
+      'Europe/Copenhagen',
+      'America/Santo_Domingo',
+      'Africa/Algiers',
+      'America/Guayaquil',
+      'Pacific/Galapagos',
+      'Europe/Tallinn',
+      'Africa/Cairo',
+      'Africa/El_Aaiun',
+      'Europe/Madrid',
+      'Africa/Ceuta',
+      'Atlantic/Canary',
+      'Europe/Helsinki',
+      'Pacific/Fiji',
+      'Atlantic/Stanley',
+      'Pacific/Chuuk',
+      'Pacific/Pohnpei',
+      'Pacific/Kosrae',
+      'Atlantic/Faroe',
+      'Europe/Paris',
+      'Europe/London',
+      'Asia/Tbilisi',
+      'America/Cayenne',
+      'Africa/Accra',
+      'Europe/Gibraltar',
+      'America/Godthab',
+      'America/Danmarkshavn',
+      'America/Scoresbysund',
+      'America/Thule',
+      'Europe/Athens',
+      'Atlantic/South_Georgia',
+      'America/Guatemala',
+      'Pacific/Guam',
+      'Africa/Bissau',
+      'America/Guyana',
+      'Asia/Hong_Kong',
+      'America/Tegucigalpa',
+      'America/Port-au-Prince',
+      'Europe/Budapest',
+      'Asia/Jakarta',
+      'Asia/Pontianak',
+      'Asia/Makassar',
+      'Asia/Jayapura',
+      'Europe/Dublin',
+      'Asia/Jerusalem',
+      'Asia/Kolkata',
+      'Indian/Chagos',
+      'Asia/Baghdad',
+      'Asia/Tehran',
+      'Atlantic/Reykjavik',
+      'Europe/Rome',
+      'America/Jamaica',
+      'Asia/Amman',
+      'Asia/Tokyo',
+      'Africa/Nairobi',
+      'Asia/Bishkek',
+      'Pacific/Tarawa',
+      'Pacific/Enderbury',
+      'Pacific/Kiritimati',
+      'Asia/Pyongyang',
+      'Asia/Seoul',
+      'Asia/Almaty',
+      'Asia/Qyzylorda',
+      'Asia/Qostanay', // https://bugs.chromium.org/p/chromium/issues/detail?id=928068
+      'Asia/Aqtobe',
+      'Asia/Aqtau',
+      'Asia/Atyrau',
+      'Asia/Oral',
+      'Asia/Beirut',
+      'Asia/Colombo',
+      'Africa/Monrovia',
+      'Europe/Vilnius',
+      'Europe/Luxembourg',
+      'Europe/Riga',
+      'Africa/Tripoli',
+      'Africa/Casablanca',
+      'Europe/Monaco',
+      'Europe/Chisinau',
+      'Pacific/Majuro',
+      'Pacific/Kwajalein',
+      'Asia/Yangon',
+      'Asia/Ulaanbaatar',
+      'Asia/Hovd',
+      'Asia/Choibalsan',
+      'Asia/Macau',
+      'America/Martinique',
+      'Europe/Malta',
+      'Indian/Mauritius',
+      'Indian/Maldives',
+      'America/Mexico_City',
+      'America/Cancun',
+      'America/Merida',
+      'America/Monterrey',
+      'America/Matamoros',
+      'America/Mazatlan',
+      'America/Chihuahua',
+      'America/Ojinaga',
+      'America/Hermosillo',
+      'America/Tijuana',
+      'America/Bahia_Banderas',
+      'Asia/Kuala_Lumpur',
+      'Asia/Kuching',
+      'Africa/Maputo',
+      'Africa/Windhoek',
+      'Pacific/Noumea',
+      'Pacific/Norfolk',
+      'Africa/Lagos',
+      'America/Managua',
+      'Europe/Amsterdam',
+      'Europe/Oslo',
+      'Asia/Kathmandu',
+      'Pacific/Nauru',
+      'Pacific/Niue',
+      'Pacific/Auckland',
+      'Pacific/Chatham',
+      'America/Panama',
+      'America/Lima',
+      'Pacific/Tahiti',
+      'Pacific/Marquesas',
+      'Pacific/Gambier',
+      'Pacific/Port_Moresby',
+      'Pacific/Bougainville',
+      'Asia/Manila',
+      'Asia/Karachi',
+      'Europe/Warsaw',
+      'America/Miquelon',
+      'Pacific/Pitcairn',
+      'America/Puerto_Rico',
+      'Asia/Gaza',
+      'Asia/Hebron',
+      'Europe/Lisbon',
+      'Atlantic/Madeira',
+      'Atlantic/Azores',
+      'Pacific/Palau',
+      'America/Asuncion',
+      'Asia/Qatar',
+      'Indian/Reunion',
+      'Europe/Bucharest',
+      'Europe/Belgrade',
+      'Europe/Kaliningrad',
+      'Europe/Moscow',
+      'Europe/Simferopol',
+      'Europe/Kirov',
+      'Europe/Astrakhan',
+      'Europe/Volgograd',
+      'Europe/Saratov',
+      'Europe/Ulyanovsk',
+      'Europe/Samara',
+      'Asia/Yekaterinburg',
+      'Asia/Omsk',
+      'Asia/Novosibirsk',
+      'Asia/Barnaul',
+      'Asia/Tomsk',
+      'Asia/Novokuznetsk',
+      'Asia/Krasnoyarsk',
+      'Asia/Irkutsk',
+      'Asia/Chita',
+      'Asia/Yakutsk',
+      'Asia/Khandyga',
+      'Asia/Vladivostok',
+      'Asia/Ust-Nera',
+      'Asia/Magadan',
+      'Asia/Sakhalin',
+      'Asia/Srednekolymsk',
+      'Asia/Kamchatka',
+      'Asia/Anadyr',
+      'Asia/Riyadh',
+      'Pacific/Guadalcanal',
+      'Indian/Mahe',
+      'Africa/Khartoum',
+      'Europe/Stockholm',
+      'Asia/Singapore',
+      'America/Paramaribo',
+      'Africa/Juba',
+      'Africa/Sao_Tome',
+      'America/El_Salvador',
+      'Asia/Damascus',
+      'America/Grand_Turk',
+      'Africa/Ndjamena',
+      'Indian/Kerguelen',
+      'Asia/Bangkok',
+      'Asia/Dushanbe',
+      'Pacific/Fakaofo',
+      'Asia/Dili',
+      'Asia/Ashgabat',
+      'Africa/Tunis',
+      'Pacific/Tongatapu',
+      'Europe/Istanbul',
+      'America/Port_of_Spain',
+      'Pacific/Funafuti',
+      'Asia/Taipei',
+      'Europe/Kiev',
+      'Europe/Uzhgorod',
+      'Europe/Zaporozhye',
+      'Pacific/Wake',
+      'America/New_York',
+      'America/Detroit',
+      'America/Kentucky/Louisville',
+      'America/Kentucky/Monticello',
+      'America/Indiana/Indianapolis',
+      'America/Indiana/Vincennes',
+      'America/Indiana/Winamac',
+      'America/Indiana/Marengo',
+      'America/Indiana/Petersburg',
+      'America/Indiana/Vevay',
+      'America/Chicago',
+      'America/Indiana/Tell_City',
+      'America/Indiana/Knox',
+      'America/Menominee',
+      'America/North_Dakota/Center',
+      'America/North_Dakota/New_Salem',
+      'America/North_Dakota/Beulah',
+      'America/Denver',
+      'America/Boise',
+      'America/Phoenix',
+      'America/Los_Angeles',
+      'America/Anchorage',
+      'America/Juneau',
+      'America/Sitka',
+      'America/Metlakatla',
+      'America/Yakutat',
+      'America/Nome',
+      'America/Adak',
+      'Pacific/Honolulu',
+      'America/Montevideo',
+      'Asia/Samarkand',
+      'Asia/Tashkent',
+      'America/Caracas',
+      'Asia/Ho_Chi_Minh',
+      'Pacific/Efate',
+      'Pacific/Wallis',
+      'Pacific/Apia',
+      'Africa/Johannesburg'
+    ];
+
+    let date = new Date;
+    aryIannaTimeZones.forEach((timeZone) => {
+
+      let strTime = date.toLocaleString("en-US", {
+        timeZone: `${timeZone}`
+      });
+      console.log(timeZone, strTime);
+    });
+
+<!-- end snippet -->
+
+
+
+
+
+
+
+// Copy of this as run in https://webforesters.com/sandbox 2020-12-23 (Wednesday)
+
+const ONE_HOUR_SEC = 3600;
+
+$w.onReady(function () {
+	//TODO: write your page related code here...
+//	console.log('Hello');
+	const now = new Date();
+	// TODO: Currently coded to DST offset: need to check date to get the correct "NY TIME"
+	var nowNewYork = shiftTimeToNewYork(now); //new Date(now.getTime() - (ONE_HOUR_MS * 4));
+	console.log('Time difference: ' + now.getTime() - nowNewYork.getTime());
+	$w('#CurrentTimeLocal').text = getDateTimeString(now);
+	$w('#CurrentTimeNewYork').text = getDateTimeString(nowNewYork);
+	testDates();
+});
+
+function shiftTimeToNewYork(date) {
+	var dateUtcMs = date.getTime() + getTimezoneOffsetMs(date.getTimezoneOffset());
+	// TODO: code 5 hours for 03/14 01:59:59.999 to 11/07 01:59:59.999
+	// TODO: code 4 hours from 11/07 02:00:00
+	return new Date(dateUtcMs - getTimezoneOffsetMs(getNewYorkTimezoneOffsetFor2020To2021(date)));
+}
+
+function getTimezoneOffsetMs(offsetMin) {
+	return offsetMin * 60000;
+}
+
+function getDateTimeString(date) {
+	return date.toLocaleDateString() + ' ' + getLocaleTimeHhMm(date);
+}
+
+function getLocaleTimeHhMm(date) {
+	return date.toLocaleTimeString([], { hour: 'numeric', minute: 'numeric' });
+}
+
+/**
+ * Returns offset from UTC to NY.
+ * 
+ * WARNING: This works from 2am Nov 01 2020 until November 7 1:59:59am.
+ * Before DST starts in 2020 will be incorrect for Summer.
+ * After DST starts in 2022 will be incorrect for Winter.
+ */
+function getNewYorkTimezoneOffsetFor2020To2021(date) {
+	const timeMs = date.getTime();
+	const NY_DST_START_2021 = 1615705200000;
+	const NY_DST_END_2021 = 1636264800000;
+	if ((timeMs >= NY_DST_START_2021) && (timeMs < NY_DST_END_2021)) {
+		return 240;
+	} else {
+		return 300;
+	}
+}
+
+
+
+// These tests will only work in NY time zone
+function testDates() {
+	// Fail one to make sure fails happen
+	testDate('03/14/2021 01:59:59', 'INTENTIONAL FAILURE');
+	testDate('03/14/2021 01:59:59', '3/14/2021 1:59 AM');
+}
+
+function testDate(dtString, expected) {
+	var date = new Date(dtString);
+	assert(expected, getDateTimeString(date), dtString)
+}
+
+function assert(expected, actual, msg) {
+	var result = expected === actual;
+	if (result) {
+		console.log('Test Successful ' + msg, expected);
+	} else {
+		console.error('Test FAILED ' + msg, 'expected: "' + expected + '"', 'actual: "' + actual + '"');
+	}
+}
