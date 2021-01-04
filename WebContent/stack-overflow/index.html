@@ -1,0 +1,44 @@
+<!--
+/*
+ * License: 2020 Web Foresters, LLC (Michigan USA)
+ * Author: Raymond Naseef
+ */
+-->
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<title>WF Stack Overflow</title>
+	<!-- link rel="icon" href="images/wf-business-icon-trans-300x300.png" type="img/png" -->
+	<link rel="icon" href="../images/wf-icon-mix.png" type="img/png">
+	<style type="text/css">
+		@import url(style.css);
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="script.js"></script>
+</head>
+
+<body>
+	<h1>WF Stack Overflow</h1>
+
+	<div>
+		<label>Call depth:</label><label id="CallDepth">0</label>
+
+		<button type="button" onclick="run();">Run Stack Overflow</button>
+	</div>
+	
+	<div>
+		<label>Timeout call depth:</label><label id="TimeoutCallDepth">0</label>
+
+		<button type="button" onclick="runTimeoutStackOverflow();">Run Timeout Stack Overflow</button>
+		<button type="button" onclick="stopTimeoutStackOverflow();">STOP!</button>
+	</div>
+	<div>
+		<button type="button" onclick="pause();">Pause</button>
+	</div>
+	
+	<p>
+		See <a href="http://raganwald.com/2013/03/28/trampolines-in-javascript.html" target="_blank">this article about Trampoline</a>:
+		a good method to avoid stack overflow.
+	</p>
+</body>
+
