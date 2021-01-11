@@ -1,0 +1,44 @@
+body {
+  background-color: #323232;
+  color: turquoise;
+  font-weight: 300;
+  height: 100vh;
+  margin: 0;
+  align-items: center;
+/*   justify-content: center;
+  text-align: center;
+  font-family: Helvetica neue, roboto; */
+}
+
+textarea {
+	outline: none !important;
+	width: 80%;
+	min-height: 180px;
+	height: 35%;
+	margin-bottom: 10px;
+}
+
+#Code {
+	color: #E8E8E8;
+	background-color: black;
+	border: inset 5px royalblue;
+}
+
+#Code:hover {
+	border: inset 5px brown;
+}
+
+#Code:focus {
+	border-style: outset;
+}
+
+#Console {
+	color: yellow;
+	background-color: royalblue;
+	border: solid 1px;
+}
+
+.error {
+	color: red;
+	font-weight: bold;
+}

@@ -1,0 +1,60 @@
+<!--
+/*
+ * License: 2020 Web Foresters, LLC (Michigan USA)
+ * Author: Raymond Naseef
+ */
+-->
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<title>WF JS Classes</title>
+	<!-- link rel="icon" href="images/wf-business-icon-trans-300x300.png" type="img/png" -->
+	<link rel="icon" href="../images/wf-icon-mix.png" type="img/png">
+	<style type="text/css">
+		@import url(style.css);
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="wf-utils.js"></script>
+	<script src="script.js"></script>
+</head>
+
+<body>
+	<h1>WF JS Classes</h1>
+	<p class="error">
+		WARNING: This is not working!  The given code is supposed to provide a mock for WfUtils, and does not work.
+		The intended results is for the Real UUID to be an actual GUID, and the Fake UUID to be "Fake_UUID" 
+	</p>
+	<div>
+		<button type="button" onclick="run();">Run!</button>
+	</div>
+
+	<label for="Code">Code:</label>
+	<textarea id="Code">
+if (!logToConsole) {
+	logToConsole = function() {
+		console.log(arguments);
+	};
+}
+
+// Method "DataType": Using "DataType" function with an instance
+Clazz = function() {
+	this.getNewUuid = function() {
+		return WfUtils.createUuid();
+	}
+};
+clazz = new Clazz();
+logToConsole('Real UUID', clazz.getNewUuid());
+
+// Method "Singleton": Instantiate the function immediately
+clazz.WfUtils = new function() {
+	this.createUuid = function() {
+		return 'Fake_UUID';
+	};
+}();
+logToConsole('Fake UUID', clazz.getNewUuid());
+	</textarea>	
+	<br/>
+	<label for="Console">Console:</label>
+	<textarea id="Console"></textarea>	
+</body>
+
