@@ -1,0 +1,59 @@
+<!--
+/*
+ * License: 2020 Web Foresters, LLC (Michigan USA)
+ * Author: Raymond Naseef
+ */
+-->
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<title>WF Toggle Element Display</title>
+	<!-- link rel="icon" href="images/wf-business-icon-trans-300x300.png" type="img/png" -->
+	<link rel="icon" href="../images/wf-icon-mix.png" type="img/png">
+	<style type="text/css">
+		@import url(style.css);
+	</style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="script.js"></script>
+	<style>
+		div {
+			border: 1px solid blue;
+			padding: 5px;
+			background-color: darkslategrey;
+			color: bisque;
+		}
+		.blueBox {
+			border: 2px solid blue;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>WF Toggle Element Display</h1>
+
+	<h4>
+		<span onclick="toggle('BlueBox');">Toggle Blue Box</span>
+	</h4>
+	<h1 class="blueBox">
+		<span id="BlueBox">Web Foresters' Making Div Show &amp; Hide</span>
+	</h1>
+
+
+	<h2 onclick="toggle('storyDiv');">Story</h2>
+	<script>
+		function toggle(id) {
+			var storyDiv = document.getElementById(id);
+			var isHidden = storyDiv.style.display === "none";
+			if (isHidden) {
+				storyDiv.style.display = "";
+			} else {
+				storyDiv.style.display = "none";
+			}
+		}
+	</script>
+
+	<div id="storyDiv">
+		This div will show and hide when you click on the H2 "Story" above it
+	</div>
+</body>
+

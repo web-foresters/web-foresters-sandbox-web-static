@@ -1,0 +1,23 @@
+body {
+  background-color: black;
+  color: turquoise;
+  font-weight: 300;
+  height: 100vh;
+  margin: 0;
+  align-items: center;
+/*   justify-content: center;
+  text-align: center;
+  font-family: Helvetica neue, roboto; */
+}
+
+#Contents {
+	margin: 20px;
+	border: inset 4px blue;
+	padding: 5px;
+	background-color: green;
+}
+
+#Source {
+	width: 95%;
+/* 	margin: 0 3% 0 3%; */
+}

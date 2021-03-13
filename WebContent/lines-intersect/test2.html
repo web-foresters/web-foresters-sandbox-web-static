@@ -1,0 +1,53 @@
+<!--
+/*
+ * License: 2020 Web Foresters, LLC (Michigan USA)
+ * Author: Raymond Naseef
+ */
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>WF Lines Intersect</title>
+		<!-- link rel="icon" href="images/wf-business-icon-trans-300x300.png" type="img/png" -->
+		<link rel="icon" href="../images/wf-icon-mix.png" type="img/png">
+		<style type="text/css">
+			@import url(style.css);
+		</style>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+	</head>
+
+	<body>
+		<h1>WF Lines Intersect</h1>
+
+	    <canvas id="canvas" width="200" height="200" style="border: 2px solid #000000; float: right;"></canvas>
+	    <div style="float: left;">
+	      <div style="float: left;">
+	        <b>Line 1:</b>
+	        <br />P1 x:
+	        <input type="number" min="0" max="200" id="p1x" style="width: 40px;" onChange="checkIntersection();" value="0">y:
+	        <input type="number" min="0" max="200" id="p1y" style="width: 40px;" onChange="checkIntersection();" value="20">
+	        <br />P2 x:
+	        <input type="number" min="0" max="200" id="p2x" style="width: 40px;" onChange="checkIntersection();" value="100">y:
+	        <input type="number" min="0" max="200" id="p2y" style="width: 40px;" onChange="checkIntersection();" value="20">
+	        <br />
+	      </div>
+	      <div style="float: left;">
+	        <b>Line 2:</b>
+	        <br />P3 x:
+	        <input type="number" min="0" max="200" id="p3x" style="width: 40px;" onChange="checkIntersection();" value="150">y:
+	        <input type="number" min="0" max="200" id="p3y" style="width: 40px;" onChange="checkIntersection();" value="100">
+	        <br />P4 x:
+	        <input type="number" min="0" max="200" id="p4x" style="width: 40px;" onChange="checkIntersection();" value="0">y:
+	        <input type="number" min="0" max="200" id="p4y" style="width: 40px;" onChange="checkIntersection();" value="0">
+	        <br />
+	      </div>
+	      <br style="clear: both;" />
+	      <br />
+	      <div style="float: left; border: 1px solid #EEEEEE; padding: 2px;" id="result"></div>
+	    </div>
+		<script src="script2.js"></script>
+	</body>
+</html>
+    
