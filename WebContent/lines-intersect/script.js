@@ -22,12 +22,14 @@ function intersects(a,b,c,d,p,q,r,s) {
 }
 
 function linesIntersect(line1, line2) {
-    return (line1.x1, line1.y1, line1.x2, line1.y2, line2.x1, line2.y1, line2.x2, line2.y2);
+    return intersects(line1.x1, line1.y1, line1.x2, line1.y2, line2.x1, line2.y1, line2.x2, line2.y2);
 }
 
 var lines = [
         { name: 'hor-1', x1: 20, y1: 40, x2: 80, y2: 40 },
-        { name: 'hor-2', x1: 20, y1: 40, x2: 80, y2: 40 }
+        { name: 'hor-2', x1: 20, y1: 40, x2: 80, y2: 40 },
+        { name: 'Amber-line-1', x1: 124, y1: 225, x2: 25, y2: 225 },
+        { name: 'Amber-line-2', x1: 90, y1: 220, x2: 90, y2: 250 }
     ];
 
 
@@ -37,8 +39,9 @@ function checkLineIntersections() {
         var line1 = lines[i];
         for (var j = i + 1; j < lines.length; j++) {
             var line2 = lines[j];
+            var dbg = console && console.debug || debug;
             if (linesIntersect(line1, line2)) {
-                println(line1.name + ' XX ' + line2.name);
+                dbg(line1.name + ' XX ' + line2.name, line1, line2);
             }
         }
     }

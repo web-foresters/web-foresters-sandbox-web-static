@@ -29,6 +29,195 @@ var ctx = canvas.getContext();
 ctx.strokeStyle = '#000000';
 ctx.lineWidth = 5;
 canvas.drawLine(canvas.XY(30, 30), canvas.XY(100, 65));
+
+/*
+Original "Drawing a Grid" URL: https://www.khanacademy.org/computer-programming/drawing-a-grid/4622681328009216
+
+Here is a project with the purpose of drawing a grid.  The grid is drawn as cells using a set of rows [row] and columns [col]
+
+K.I.S.S. - Keep It Super Simple
+
+Please design and implement a grid. It can be simple, or something more interesting like a chess board.
+
+Ideas:
+    1. Draw an entire grid
+    2. Change the look of the grid:
+        - Change the background of each cell
+    3. Write information in each cell (perhaps it's position?)
+    4. Make something happen when the user clicks on a cell
+
+*/
+var pawn1 = {
+    coordinates: {column: 1, row: 0}
+};
+
+var pawn2 = {
+    coordinates: {column: 1, row: 1}
+};
+
+var pieces = [pawn1, pawn2];
+
+var pieceColor = [255, 0];
+
+var GRID_ROW_COUNT = 8;
+var GRID_COL_COUNT = 8;
+
+var cellWidth = width / GRID_COL_COUNT;
+var cellHeight = height / GRID_ROW_COUNT;
+
+var cellXY = function (column, row) {
+    return {
+        x: cellWidth * column,
+        y: cellHeight * row
+    };
+}; 
+
+var drawCell = function(column, row) {
+    stroke(140, 0, 255);
+    var XY = cellXY(column, row);
+    rect(XY.x, XY.y, cellWidth, cellHeight);
+};
+
+var drawPiece = function (piece) {
+    debug(piece);
+    textSize(37);
+    fill(pieceColor[0], pieceColor[1], 0);
+    debug(pieceColor);
+    var XY = cellXY(piece.coordinates.column, piece.coordinates.row);
+    text("p", XY.x + 15, XY.y + 31);
+    stroke(255, 0, 0);
+    //rect(column * 50, row * 50, 30, 30);
+    //debug(pieceColor, column, row);
+};
+
+var drawPieces = function() {
+    for (var i = 0; i < pieces.length; i++) {
+        drawPiece(pieces[i]);
+    }
+};
+
+var drawBoard = function () {
+    for (var i = 0; i < 9; i++) {
+        for (var p = 0; p < 9; p++) {
+            if(i % 2 === p % 2) { 
+                fill(255, 255, 255);
+            } else {
+            fill(0, 0, 0);
+            }
+        drawCell(p, i);
+        }
+    }
+    drawPieces();
+};
+
+drawBoard();
+
+var piece = {
+    name: "p",
+};
+
+var pieceParameters = [0, 0];
+
+var getColumn = function (x) {
+    return floor(x / cellWidth);
+};
+
+var getRow = function (y) {
+    return floor(y / cellHeight);
+};
+
+var piecePressed = {
+    piece: null,
+};
+
+var getPiece = function (x, y) {
+    var column = getColumn(x);
+    var row = getRow(y);
+    for (var i = 0; i < pieces.length; i++) {
+        var currentPiece = pieces[i];
+        if (column === currentPiece.coordinates.column &&
+            row === currentPiece.coordinates.row) {
+            return currentPiece;
+        }
+    }
+    return null;
+};
+
+var pieceMovement = function (piece, newX, newY) {
+    var column = getColumn(newX);
+    var row = getRow(newY);
+    return (column === piece.coordinates.column + 1 && 
+        row === piece.coordinates.row);
+};
+
+var unselectPiece = function (piece, newX, newY) {
+    var column = getColumn(newX);
+    var row = getRow(newY);
+    return (column === piece.coordinates.column && 
+        row === piece.coordinates.row);
+};
+
+mousePressed = function () {
+    //debug ("mouseIsPressed");
+    var currentPiece = piecePressed.piece;
+    if (currentPiece === null) {
+        currentPiece = getPiece(mouseX, mouseY);
+        if (currentPiece !== null) {
+            debug("if statement");
+            pieceColor = [0, 255];
+            drawPiece(currentPiece);
+            piecePressed.piece = currentPiece;
+        }
+    } else {
+        if (pieceMovement(currentPiece, mouseX, mouseY) || unselectPiece(currentPiece, mouseX, mouseY)) {
+            drawBoard();
+            currentPiece.coordinates.column = getColumn(mouseX);
+            currentPiece.coordinates.row = getRow(mouseY);
+            pieceColor = [255, 0];
+            piecePressed.times = 0;
+            drawPiece(currentPiece);
+            piecePressed.piece = null;
+        }
+            /*if (getColumn(mouseX) === 8) {
+                piece.name = "q";
+            }*/
+                
+   }
+};
+
+stroke(136, 0, 255);
+line(0, 399, 399, 399);
+line(399, 0, 399, 399);
+
+//text(mousePressedOnce, 200, 200);
+
+/*drawCell(0, 0);
+drawCell(2, 2);*/
+
+/*mouseIsPressed = function () {
+    if (mouseX > 50 * pieceParameters[0] && mouseX < 50 * pieceParameters[1] + 50 && mouseY > 50 * pieceParameters[1] && mouseY < 50 * pieceParameters[1] + 50) {
+        pieceColor[0] = 0;
+        pieceColor[1] = 255;
+        mousePressedOnce = 1;
+    }
+};*/
+
+/*mouseIsPressed = function () {
+    if (mousePressedOnce === 1) {
+        pieceParameters[0] = floor((mouseX / 400) * 8);
+        pieceParameters[1] = floor((mouseY / 400) * 8);
+    }
+};*/
+
+/*var piecePlacement = function (column, row) {
+    fill(255, 0, 0);
+    textSize(37);
+    var XY = cellXY(column, row);
+    text("p", XY.x + 15, XY.y + 31);
+    stroke(255, 0, 0);
+    //rect(column * 50, row * 50, 30, 30);
+};*/
+
 	</textarea>
 	<br/>
 	<button type="button" onclick="runScript();">Run!</button>

@@ -1,62 +1,16 @@
 <!DOCTYPE html>
 <!-- This is based on DillingerLee's great template here:
 https://github.com/Team-Code/KA_Offline -->
-<html> 
- <head>
-    <title>Processing.JS inside Webpages with Ace Editor</title> 
+<html>
+<head>
+	<title>Processing.JS inside Webpages with Ace Editor</title> 
 	<link rel="icon" href="../images/wf-icon-mix.png" type="img/png">    
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<style>
-body {
-	background-color: gray;
-}
-
-#WorkArea {
-	position: fixed;
-	top: 40;
-	left: 20;
-	width: 100%;
-	height: 50%;
-}
-
-#Menu {
-	position: fixed;
-	top: 50%;
-	margin-top: 10px;
-	width: 100%;
-}
-
-#Menu > * {
-	display: relative;
-	margin: 10px auto 0 20px;
-}
-
-
-#EditorWrapper {
-	float: left;
-	width: 45%;
-	position: relative;
-	height: 100%;
-}
-
-#Editor {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-
-#MyCanvas {
-	position: relative;
-	margin-left: 30px;
-	height: 100%;
-	border: solid 2px black;
- }
-
+	<style type="text/css">
+		@import url(styles/main.css);
 	</style>
 </head>
- <body>
+<body>
 
 <div id="WorkArea">
 	<div id="EditorWrapper">
@@ -94,12 +48,9 @@ var draw = function() {
 	<!--This draws the Canvas on the webpage -->
 	<canvas id="MyCanvas"></canvas> 
 
-</div>
-
-<div id="Menu">
-	<button type="button" onclick="runEditor();">RESTART</button>
-	<button id="PauseButton" type="button" onclick="togglePause();">PAUSE</button>
-	<span style="display: none;">
+	<div id="Menu">
+		<button type="button" onclick="runEditor();">RESTART</button>
+		<button id="PauseButton" type="button" onclick="togglePause();">PAUSE</button>
 		<label for="FrameRate">Frame Rate:</label>
 		<select id="FrameRate" onchange="changeFrameRate();">
 			<option value="0">0</option>
@@ -113,22 +64,13 @@ var draw = function() {
 			<option value="80">80</option>
 			<option value="90">90</option>
 		</select>
-	</span>
+	</div>
+
 </div>
 
-<script src="../editor-ace/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    editor = ace.edit("Editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.session.setMode("ace/mode/javascript");
-    editor.on('change', editorChanged);
 
-    // Handle auto-restart with changes
-    function editorChanged(event) {
-    	console.log(event);
-    	runEditor();
-    }
-</script>
+<script src="../editor-ace/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/wf-ace-editor-utils.js"></script>
 
 
 	<br clear="all"/>
@@ -146,154 +88,11 @@ var draw = function() {
 			</li>
 		</ul>
 	</div>
- </body>
- 
- <!-- Run all the JavaScript stuff -->
- <!-- Include the processing.js library -->
- <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
- <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.js"></script> 
- <script src="wf-coding-utils.js"></script>
- 
- <script>
+</body>
 
- 	// FROM: https://stackoverflow.com/questions/5379120/get-the-highlighted-selected-text
-function getSelectionText() {
-    var text = "";
-    var activeEl = document.activeElement;
-    var activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
-    if (
-      (activeElTagName == "textarea") || (activeElTagName == "input" &&
-      /^(?:text|search|password|tel|url)$/i.test(activeEl.type)) &&
-      (typeof activeEl.selectionStart == "number")
-    ) {
-        text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd);
-    } else if (window.getSelection) {
-        text = window.getSelection().toString();
-    }
-    return text;
-}
-
-/* document.onmouseup = document.onkeyup = document.onselectionchange = function() {
-  document.getElementById("sel").value = getSelectionText();
-};
- */
-	function runEditor() {
-		try {
-			_runEditor();
-		} catch (err) {
-			console.log(err);
-		}
-	}
- 	function togglePause() {
- 		if (!paused) {
- 			stopLooping();
- 		} else {
- 			continueLooping();
- 		}
- 	}
- 	function stopLooping() {
- 		try {
- 			if (pi) {
- 				pi.noLoop();
- 				setPaused(true);
- 			}
- 		} catch (err) {
-			console.log(err);
- 		}
- 	}
- 	function continueLooping() {
- 		try {
- 			if (pi) {
- 				pi.loop();
- 				setPaused(false);
- 			}
- 		} catch (err) {
-			console.log(err);
- 		}
- 	}
-
- 	var pi;
- 	var piNumber = 0;
- 	var paused = false;
-		function setPaused(isPaused) {
-			paused = isPaused;
-			$('#PauseButton').text(isPaused ? "CONTINUE" : "PAUSE");
-		}
- 		function exitPi() {
-			console.log("Exiting processor instance " + this.processorNumber);
-			this._origExit();
-		}
- 		function noOp() {}
-	    function _runEditor() {
-			var sketchProc = function(processingInstance) {
-				piNumber++;
-				console.log("Starting processor instance " + piNumber + " ... " + (pi ? pi.processorNumber : ''));
-				var oldPi = pi;
-				try {
-					pi = processingInstance;
-					pi.processorNumber = piNumber;
-					pi._origExit = pi.exit;
-					pi.exit = exitPi;
-					pi.mouseIsPressed = false;
-					pi.keyIsPressed = false;
-					pi.getImage = pi.loadImage;
-					pi.size(400, 400);
-					pi._origSize = pi.size;
-					pi.size = noOp;
-					// Don't know how to use onPause/onLoop events or how to find out if PI is looping...
-					pi.paused = false;
-					pi._origNoLoop = pi.noLoop;
-					pi.noLoop = function () {
-						setPaused(true);
-						pi._origNoLoop();
-					};
-					pi._origLoop = pi.loop;
-					pi.loop = function () {
-						setPaused(false);
-						pi._origLoop();
-					};
-					with (pi) {
-						eval(editor.getValue());
-					}
-					if (pi.draw) {
-						pi._draw = pi.draw;
-						pi.draw = function() {
-							try {
-								pi._draw();
-							} catch (err) {
-								console.log('pi.draw failed:', err);
-								pi.noLoop();
-							}
-						}
-					} else {
-						pi.draw = noOp;
-					}
-				} catch (err) {
-					console.log(err);
-					pi.exit();
-					pi = oldPi;
-					return false;
-				}
-		    	if (oldPi) {
-		    		oldPi.exit();
-		    	}
-			};
-			var canvas = getCanvas();
-			try {
-				new Processing(canvas, sketchProc); 
-			} catch (err) {
-				console.log(err);
-			}
-	    }
-	    
-	    function changeFrameRate() {
-	    	var fr = parseInt(document.getElementById('FrameRate').value, 10);
-	    	if (fr > 0) {
-		    	pi.frameRate(fr);
-	    		pi.loop();
-	    	} else {
-	    		pi.noLoop();
-	    	}
-	    }
-</script>
+<!-- Run all the JavaScript stuff -->
+<!-- Include the processing.js library -->
+<!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
+<script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.js"></script> 
+<script src="js/wf-coding-utils.js"></script>
 </html>
