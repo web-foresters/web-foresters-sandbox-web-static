@@ -193,3 +193,6 @@ function getTaSelectionOffsets($textarea) {
 	};
 }
 
+function debug() {
+	console.debug.apply(null, arguments);
+}
