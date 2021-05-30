@@ -1,0 +1,13 @@
+body.dark-mode {
+	color: rgb(220, 220, 190);
+	background-color: Black;
+}
+
+body.medium-mode {
+	color: yellow;
+	background-color: RoyalBlue;
+}
+
+body.light-mode {
+	background-color: Beige;
+}
